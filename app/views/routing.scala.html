@@ -1,0 +1,31 @@
+@main(" - Routes, Routing and Restful APIs"){
+	<h1>Routes and Routing</h1>
+	
+	<p>Lets see how this page is displayed</p>
+	<div id="left-float-image"><img src="assets/images/routing/index.png" /></div>
+	
+	<p>The main entry point of your application is the conf/routes file. This file defines all of the application&apos;s accessible URLs.</p>
+	<p><span class="console">GET	/ &nbsp;&nbsp; controllers.Slides.index()</span></p>
+	<p>That simply tells Play that when the web server receives a GET request for the / path, it must call the controllers.Slides.index() method, you can see that method on the left</p>
+	<p>Here, the action returns a 200 OK response with an HTML response body. The HTML content is provided by a Scala template compiled to standard Java methods, here as <span class="console">views.html.index.render(String title)</span>.</p>
+	
+	<ul>
+		<li>Play will auto-detect the output content-type based on the object you provide to the result method, <br />eg. String --&gt; text/plain, JSONNode object --&gt; text/json</li>
+		<li>HTML input parameters can be URL parameters or part of the URL itself, configurable in the routes file. <br />eg. <span class="console">GET     /tasks/:id                  controllers.Application.tasks(id: Long)</span></li>
+		<li>API for storing/reading cookies</li>
+		<li>You can have as many routes files as you want, add more in your application.conf</li>
+		<li>You can do reverse routing, implementers of routes can call back to the routes using their own input parameters</li>
+		<li>The routing syntax supports regular expressions, write your own instantly-unmaintainable program in the routes file!</li>
+	</ul>
+	
+	<h1>Restful APIs</h1>
+	
+	<p>Obviously this isn't just useful for webpages, you can also build your own restful server APIs easily like this, and then call them from your rich UI framework, delivering JSON objects back to the your client.</p>
+	
+	<ul>
+		<li>GET, POST, PUT, DELETE as you need</li>
+		<li>Read POST parameters using the DynamicForm object, which happens to look exactly like a DataMap.. or accept a JSON objects over Jackson</li>
+		<div class="next">Next <a href="/templating"><img src="assets/images/next.png" /></a></div>
+	</ul>
+	
+}

@@ -1,0 +1,19 @@
+@(reservation: models.Reservation)
+
+@main(" - Templating"){
+	<h1>Templating in Scala</h1>
+	<p><span class="quote">Scala is an object-functional programming and scripting language for general software applications</span>-- Wikipedia. <br />
+	Here it server a similar purpose to JSP (or Enterprise Ruby).</p>
+	
+	@recloc(reservation)
+	
+	<ul>
+		<li>Templates are runtime compiled, you'll see errors on browser refresh</li>
+		<li>Basically, @@ is a magic character and from there you can call methods on any objects you passed into the render method of the template</li>
+		<li>Break pieces of the page (overall layout, headers, footers and resuable bits) into sub-templates called <i>partials</i> and reuse them over your application as you need. Good for response design!</li>
+	</ul>
+	
+	<p>Don't go crazy! <br /> <img src="assets/images/templating/warning.png" /> -- Play Framework Documentation</p>
+		
+	<div class="next">Next <a href="/database"><img src="assets/images/next.png" /></a></div>
+}

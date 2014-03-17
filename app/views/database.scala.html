@@ -1,0 +1,63 @@
+@(reservationForm: Form[Reservation], reservations: List[models.Reservation])
+
+@main(" - Database and Migrations"){
+	<h1>Using the database</h1>
+	
+	<div id="left-float-image">
+		<div id="left-box">
+		<h3>List of all reservations</h3>
+		<table>
+			<tr><th>Record Locator</th><th>Name</th></tr>
+		@for(reservation <- reservations){
+			<tr><td>@reservation.getRecordLocator()</td><td>@reservation.getTravelerName()</td></tr>
+		}
+		</table>
+		<h3>POST a reservation</h3>
+		
+		@helper.form(action = routes.Application.newReservation()){
+			@helper.inputText(reservationForm("traveler_name"), '_label -> "Traveler Name") <input type="submit" value="Book" />
+		}
+		</div>
+	</div>
+	
+	
+	<ul>
+		<li>Play comes with preconfigured support for one relational database, you can figure more by simply giving each one a name.</li>
+	 	<li>Starts with a preconfigured H2 in-memory database out of the box, after that you can put any database with a JDBC driver (Postgres is supported in Heroku)</li>
+	</ul>
+	
+	<div style="float:right"><img src="assets/images/db/config.png" /></div>
+	<p>Configuration is super-simple, just edit 4 lines in your application.conf</p>
+	<p>You can simply access the DB over raw JDBC if that's what you want to do, but then you'd miss out on a lot of stuff Play can help you with</p> 
+	
+	
+	<h2>Ebean</h2>
+	
+	<p>Ebean is an database access framework that includes Object-Relational Mapping (ORM) based-on Hibernate. It provides DB access in a few different ways:</p>
+	
+	<ul>
+		<li><b>ORM</b>: You can access the database simply by annotating your model classes. No getters, setters or much other special stuff is required. EBean includes a query builder, so that you can build up your database query in the code (including pre-fetches) and then let it handle the rest.<br />
+		eg. <span class="console">List<Reservation> kloots = Ebean.find(Reseravtion.class).where("travelerName").eq("kloot").findList()</span></li>
+		<li><b>EQL</b>: If you want more control, Ebean comes with it's own JPQL- or HQL-like query language. Using this you still get objects back, but you get more control of how the query is executed, and performance is better because filtering occurs in the SQL statements rather than in the code<br />
+		eg.  <span class="console">find kpiFlight where kpi.gid=:kpiID and timestamp >= :startTime and timestamp <= :endTime</span></li>
+		<li><b>SQL</b>: You can just write native SQL, and you'll get SQLRow objects back that you can do what you want with.</li>
+	</ul>
+	
+	<h1>Schemas and Migrations</h1>
+	
+	<div style="float:right"><img src="assets/images/db/script.png" /></div>
+	<p>One of the cool things about Ebean and Play together is that you don't have to define your schema in the database. Simply put down the annotations as you need them and when you refresh the server, Play will help you migrate the schema. 
+	When you next refresh, Play auto-generates a migration file on next reload, including an up (migrate) and down (rollback) element. 
+	You can rewrite is as you like before choosing to apply it. There's a lot of advantages to this, like</p>
+	
+	<ul>
+		<li>You don't have to keep a separate database stream. The server will apply schema changes to your own DB and move the data for you for each DB instance</li>
+		<li>You can preload data as part of a migration, provide is as a <a href="http://en.wikipedia.org/wiki/YAML">YAML</a> file</li>
+		<li>You alo can load seed data into the in-memory DB that's used when running tests. You can write a bootstrap job to do this in code for you, or you can give YAML</li> 		
+	</ul>
+	
+	<p>If you want crazy performance out-of-the-box, there is also a memcached plugin</p>
+	
+	<div class="next">Next <a href="/webservices"><img src="assets/images/next.png" /></a></div>
+	
+}

@@ -1,0 +1,19 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Slides.index()
+GET     /intro                      controllers.Slides.intro()
+GET		/routing     				controllers.Slides.routing()
+GET		/templating					controllers.Slides.templating()
+GET		/database					controllers.Slides.database()
+GET		/everything-else			controllers.Slides.everythingElse()
+GET 	/webservices				controllers.Application.searchImage(q: String ?= "Flickr Logo")
+
+POST	/reservation				controllers.Application.newReservation()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+GET 	/time						controllers.Application.time()

@@ -1,0 +1,68 @@
+#left-float-image{
+	max-width: 50%;
+	float:left;
+	padding-top: 3%;
+	padding-left: 64px;
+	margin-right: 3%;
+}
+
+body{
+	font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-size: 16pt;
+	height:100%;
+	line-height: 1.7em;
+}
+
+#container{
+	min-height: 100%;
+	padding-bottom: 65px;
+}
+
+#intro-text{
+    text-align: right;
+    padding-top: 20%;
+    margin-right: 22px;
+}
+
+.next{
+    text-align: right;
+    vertical-align: middle;
+}
+
+h1{
+	font-size: 28pt;
+}
+
+#intro-text ul{
+	list-style-type: none;
+	color: Gray;
+}
+
+.quote{
+	font-style: italic;
+	background-color: LightGray;
+}
+
+.console{
+	font-family: Consolas;
+	color: white;
+	background-color: black;
+}
+
+#left-box{
+	border: 1px dashed black;
+	margin: 2px
+}
+
+#footer{
+	background-image: url("../images/play-logo.png");
+	background-repeat: no-repeat;
+	background-position: right top;
+	min-height: 55px;
+	text-align: right;
+	padding-top: 40px;
+	margin-right: 22px;
+	font-size: 14px;
+	margin-top: 65px;
+	clear: both;
+}

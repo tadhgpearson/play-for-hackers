@@ -1,0 +1,87 @@
+@(imgName: String)
+@import play.i18n._
+
+@main(" - Everything Else"){
+	<h1>Everything else</h1>
+	<p>But wait, there's more...</p>
+	
+	<h2>Sessions</h2>
+	<ul>
+	<li>Play Framework doesn't support conventional JEE sessions.<br /> 
+		This removes lots of complexity when developing a server, like not having to worry about failover or synchronization, by making you do it</li>
+		<li>Play can help you with certain session-style tasks, like authentication.<br />
+		It comes with a built-in authenticator and allows you to mark classes as <i>secured</i> so that access can be restricted based on an in-memory or database-backed lookup.</li>
+		<li>For other session-like behavior, the best thing to do is to plant a uniquely identifying cookie on the client, and use their identification to do a lookup in the cache.</li>
+	</ul>
+
+	<h2>Caching</h2>
+	<ul>
+		<li>Play comes with <a href="http://www.ehcache.org/">EHCache</a> for in-memory storage, although other caches plug-ins are supported.</li>
+		<li>The cache can be used either as a giant, Global hashmap (think session context) through <span class="console">Cache.put()</span> and <span class="console">Cache.get()</span>, or by using the @@Cached annotation to cache any object, or the output of any method.</li>
+		<li>Depending on the cache implementation you choose to use, objects may be transient, and failover may or may-not be supported - EHCache obects are not transient and failover is not supported.</li>
+	</ul>
+
+	<h2>Web Sockets</h2>
+	<img style="float:right" src="assets/images/misc/sockets.png" />
+	<p>Play supports HTML5 websockets, just return a WebSocket object from the controller instead of a Result object.
+		This is a good alternative to server polling on HTML5 supported browsers.</p>
+	
+	
+	<h2>Concurrency</h2>
+	<ul>
+		<li>Play serves each HTTP request in an individual, isolated thread. 
+		This provides some default level of concurrency for rich web-applications, as a desktop web browser will execute 5 or 6 concurrent calls on the server simultaneously, allowing multiple AJAX request to be served in parallel.</li>
+		<li>Isolation of write operations on the database is guaranteed server-wide, so long as you use eBean for access.</li>
+	
+		<li>For concurrency within a single request, <a href="http://akka.io/">Akka</a> support is built-in.
+		<p> Akka provides asynchronous, event-driven thread-like <i>actors</i> that are run concurrently on the server and are coded in much the same way as event-driven programming is coded on the UI.
+		Actors can exchange messages, and have actions occur on the receiving of messages. 
+		This is a pretty good way to do things such as call multiple APIs concurrently</p>
+	<p>The actor pool is then configurable at server level, to allow actors to be executed concurrently on different machines, and to allow actors to be restarted if something goes wrong.
+		If you've tried concurrency in Erlang, you'll find this is quite similar</p></li>
+	</ul>
+	
+	<h2>Internationalization</h2>
+	<img style="float:left" src="assets/images/misc/@(imgName).gif" />
+	<p>@Messages.get("demo.message") </p>
+	
+	<h2>Globals</h2>
+	<div style="float:right"><img src="assets/images/misc/global.png" /></div>
+	
+	<p>Play provides a class named Global that, through annotations, allows you to extend the functionality of the server. In the Globals you can do things like</p>
+	<ul>
+		<li>Customize the behavior of the server on error, for example, when a HTTP 404 or 500 error is required. This is handy when you &quot;never want to have any errors&quot;</li>
+		<li>Customize what happens on server startup and shutdown</li>
+		<li>Want something to happen on every HTTP request</li>
+	</ul>
+	<p>So, for example, if you want to set the timezone to UTC for your whole application, you can do this by implementing Global.onStart() and adding your own functions</p>
+	
+	
+	
+	<h2>Distributing a JAR</h2>
+	<div style="float:left"><img src="assets/images/misc/dist.png" /></div>
+	<p>Running <span class="console">play dist</span> from the console will build a zip file containing all of the JARs required to run your application.
+		Like JRuby, the zip file will include the redistributable play application JARs that simply embed your application within themselves.
+		That means that starting the JARs will basically run a customized version of Play containing only your compiled application.</p>
+	
+	<h2>Performance and Stability</h2>
+	<ul>
+	<li>Using Play Framework for the Jeppadeus project, I was pleasantly surprised by the speed and stability of the server.
+		As with all hot-reloadable servers, no cleaning is performed on page load. Occasionally a clean of the compiled is required and can be done by stopping the server and calling <span class="console">play clean</span>.	</li>
+	<li>The hot-reloading conflicts with eclipse's built-in debugger, since each both Play and Eclipse will try to reload the code on each save of the Java file.
+		Thus, in your eclipse debugging configuration, it's important to turn off the hot reloading</li>
+	<li>While HTTP server performance is generally excellent, EBean performance is a different issue, and in it's default ORM configuration, EBean can easily perform inefficient joins and get very slow even when operating on a medium-sized result set. (18s to process a 5000x50 resultset, using PostgreSQL)</li>
+	<li>The contents of the assets folder can also be served using HTTP compression by simply providing the same file as a .gz in the assets folder, eg. main.css.gz to serve the main.css in compressed form</li>
+	</ul>
+	
+	<h3>Minification</h3>
+	<p>If you run in development mode, Javascript files are served directly from your public/javascript folder. 
+	However, when the application is run as a redistributable, the javascripts will we minified and the minified versions will be run in the browser.
+	This improves page-load time, but makes it impossible to debug production javascript in the browser.
+	Minification is performed using the Google Closure compiler</p>
+		
+		<hr />
+		
+	<h1>Questions Please!</h1>
+	
+}

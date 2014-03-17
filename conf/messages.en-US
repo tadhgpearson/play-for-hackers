@@ -1,0 +1,1 @@
+demo.message=Play supports configurable internationalization based on the language provided in the HTTP header of the request. This is configurable in the browser but is generally set from the operating system. This way you can transparently serve up different pages based on the language requested in the header. You can also customize based on the country code.

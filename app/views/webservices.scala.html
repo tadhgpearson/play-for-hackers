@@ -1,0 +1,31 @@
+@(searchImageURL: String)
+
+@main(" - Web Services"){
+
+	<h1>Calling external APIs</h1>
+	<div id="left-float-image">
+		<h3>Search for an image</h3>
+		@helper.form(action = routes.Application.searchImage()){
+			<input type="text" name="q" /> <input type="submit" value="Search" />
+		}
+		<h3>Previously searched image</h3>
+		<p style="text-align:center"><img src="@searchImageURL" /></p>
+	</div>
+	
+	<p>An essential feature of any hack is to be able to call lots of web services to do stuff for you. 
+		Play has some pretty good in-built support for restful XML and JSON webservices.
+		Its simple, out-of-the-box Web Services library supports builder-style construction of parameter-based GET, POST, PUT and DELETE requests.
+		It also has built-in support for HTTP authentification and plug-in support for standard OAuth2 implementations (like Facebook)</p>
+		
+	<p>Calls to Webservices library make an asynchronous call to the webservice and immediately return an <span class="console">Promise</span> object. Then </p>
+	<ul>
+		<li>Either block your current thread synchronously by calling <span class="console">.get()</span>, <span class="console">.post()</span> etc. and simply wait for the response</li>
+		<li>Construct a <span class="console">Future</span> object from the promise, and have that execute a callback function on response. 
+			Callback functions can include delivering a HTTP response to your client or writing to a websocket</li>
+	</ul>	
+	
+	<p>Play also augments Jackson and SAX with simple methods to get path-based elements from the response.
+		This makes selectively pulling bits of the response out and using them quite easy</p>
+		
+	<div class="next">Next <a href="/everything-else"><img src="assets/images/next.png" /></a></div>
+}

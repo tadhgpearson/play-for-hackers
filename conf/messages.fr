@@ -1,0 +1,1 @@
+demo.message=Play a choisi la langue du message au base de la langue dans le HTTP-header de ma demande. Les defuats viens de ma navigateur ou de ma système d'exploitation.
