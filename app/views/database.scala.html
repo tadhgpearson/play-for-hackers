@@ -22,7 +22,7 @@
 	
 	
 	<ul>
-		<li>Play comes with preconfigured support for one relational database, you can figure more by simply giving each one a name.</li>
+		<li>Play comes with preconfigured support for one relational database, you can configure more by simply giving each one a name.</li>
 	 	<li>Starts with a preconfigured H2 in-memory database out of the box, after that you can put any database with a JDBC driver (Postgres is supported in Heroku)</li>
 	</ul>
 	
@@ -37,7 +37,7 @@
 	
 	<ul>
 		<li><b>ORM</b>: You can access the database simply by annotating your model classes. No getters, setters or much other special stuff is required. EBean includes a query builder, so that you can build up your database query in the code (including pre-fetches) and then let it handle the rest.<br />
-		eg. <span class="console">List<Reservation> kloots = Ebean.find(Reseravtion.class).where("travelerName").eq("kloot").findList()</span></li>
+		eg. <span class="console">List<Reservation> kloots = Ebean.find(Reservation.class).where("travelerName").eq("kloot").findList()</span></li>
 		<li><b>EQL</b>: If you want more control, Ebean comes with it's own JPQL- or HQL-like query language. Using this you still get objects back, but you get more control of how the query is executed, and performance is better because filtering occurs in the SQL statements rather than in the code<br />
 		eg.  <span class="console">find kpiFlight where kpi.gid=:kpiID and timestamp >= :startTime and timestamp <= :endTime</span></li>
 		<li><b>SQL</b>: You can just write native SQL, and you'll get SQLRow objects back that you can do what you want with.</li>
